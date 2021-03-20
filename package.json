@@ -1,0 +1,13 @@
+{
+  "name": "dash-proxy",
+  "version": "1.0.0",
+  "main": "server.js",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "lru-cache": "^6.0.0",
+    "morgan": "^1.10.0",
+    "node-fetch": "^2.6.1"
+  }
+}

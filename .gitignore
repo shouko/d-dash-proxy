@@ -1,0 +1,4 @@
+node_modules
+.env
+build_key_table.js
+keys.json
