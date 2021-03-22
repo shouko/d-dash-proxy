@@ -61,5 +61,5 @@ app.get(`${basePath}/:channel/:representation.hls/:segment.ts`, async (req, res)
 });
 
 const listener = app.listen(port, () => {
-  console.log(`Server available on http://localhost:${listener.address().port}/`);
+  console.log(`Server available on http://localhost:${listener.address().port}${basePath}`);
 });
