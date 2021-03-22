@@ -1,4 +1,5 @@
 const { spawn } = require('child_process');
+const ffmpegPath = require('ffmpeg-static');
 const fetch = require('./fetch');
 const { upstream } = require('./config');
 const { getChannelKey } = require('./key_manager');
@@ -27,7 +28,7 @@ const getSegment = (channel, representation, segment) => new Promise(async (reso
   ];
 
   const output = [];
-  const ff = spawn('ffmpeg', ffArgs);
+  const ff = spawn(ffmpegPath, ffArgs);
 
   ff.stdout.on('data', (data) => {
     output.push(data);
