@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Preview Player <%= channels.find(([id]) => id == channel) %></title>
+    <style type="text/css">
+      button, input {
+        height: 3em;
+        margin-bottom: 5px;
+        margin-right: 5px;
+      }
+      video {
+        width: 1280px;
+        max-width: calc(100vw - 20px);
+      }
+      #url {
+        width: 95%;
+        max-width: 25em;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <% channels.forEach(([id, name]) => { %>
+    <a href="<%= basePath %>/<%= id %>"><button><%= name %></button></a>
+    <% }); %>
+    <br /><br />
+    <%= channels.find(([id]) => id == channel) %>
+    <br />
+    <input id="url" /><button onclick="document.getElementById('url').select();document.execCommand('copy')">Copy</button><br /><br />
+    <video id="video" controls autoplay></video>
+    <% if (channel) { %>
+    <script>
+    var video = document.getElementById('video');
+    var videoSrc = document.location.origin + '<%= basePath %>/<%= channel %>/playlist.m3u8';
+    document.getElementById('url').value = videoSrc;
+    if (Hls.isSupported()) {
+      var hls = new Hls();
+      hls.loadSource(videoSrc);
+      hls.attachMedia(video);
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = videoSrc;
+    }
+    </script>
+    <% } %>
+  </body>
+</html>

@@ -9,12 +9,23 @@ const {
 const fetch = require('./fetch');
 const { getSegment } = require('./segment');
 const { getChannelKey, resolveChannelKeyId } = require('./key_manager');
+const channels = require('./channels.json');
 
 const app = express();
 if (useMorgan) app.use(morgan('combined'));
 app.disable('x-powered-by');
+app.set("view engine", "ejs");
 
 app.get('/', (req, res) => res.send('Hello World!'));
+
+app.get(`${basePath}/:channel?`, (req, res) => {
+  const { channel } = req.params;
+  res.render('player.ejs', {
+    basePath,
+    channel,
+    channels
+  });
+});
 
 const playlistHandler =  async (req, res) => {
   const { channel, representation } = req.params;
